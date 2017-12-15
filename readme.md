@@ -13,4 +13,4 @@ Copy the docker compose file to the project and make sure it is named `docker-co
   * For Drupal 7 and 8 project where the docroot is `./`
   * Exposes port 3007 for MySQL access
 
-[Docker4Druapl documentation](https://docker4drupal.readthedocs.io/en/latest/)
+[Docker4Drupal documentation](https://docker4drupal.readthedocs.io/en/latest/)
