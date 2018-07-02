@@ -26,6 +26,7 @@ services:
       DB_PASSWORD: $DB_PASSWORD
       DB_NAME: $DB_NAME
       DB_DRIVER: $DB_DRIVER
+      COLUMNS: 160 # Set 80 columns for docker exec -it.
 ## Read instructions at https://wodby.com/stacks/drupal/docs/local/xdebug/
 #      PHP_XDEBUG: 1
 #      PHP_XDEBUG_DEFAULT_ENABLE: 1
@@ -49,6 +50,7 @@ services:
     depends_on:
       - php
     environment:
+#      NGINX_PAGESPEED: "on"
       NGINX_STATIC_CONTENT_OPEN_FILE_CACHE: "off"
       NGINX_ERROR_LOG_LEVEL: debug
       NGINX_BACKEND_HOST: php
@@ -155,7 +157,7 @@ services:
 #      - 'traefik.port=8983'
 #      - 'traefik.frontend.rule=Host:solr.${PROJECT_BASE_URL}'
 
-#  nodejs:
+#  drupal-node:
 #    image: wodby/drupal-node:$DRUPAL_NODE_TAG
 #    container_name: "${PROJECT_NAME}_drupal_nodejs"
 #    environment:
@@ -190,7 +192,7 @@ services:
 #  node:
 #    image: wodby/node:$NODE_TAG
 #    container_name: "${PROJECT_NAME}_node"
-#    working_dir: /app
+#    working_dir: /var/www/html/path/to/theme/to/build
 #    labels:
 #      - 'traefik.backend=node'
 #      - 'traefik.port=3000'
@@ -198,8 +200,8 @@ services:
 #    expose:
 #      - "3000"
 #    volumes:
-#      - ./path/to/your/single-page-app:/app
-#    command: sh -c 'npm install && npm run start'
+#      - ./:/var/www/html
+#    command: sh -c 'yarn install && yarn run start'
 
 #  blackfire:
 #    image: blackfire/blackfire
@@ -255,7 +257,7 @@ services:
     command: -c /dev/null --web --docker --logLevel=INFO
     ports:
       - '8000:80'
-#      - '8080:8080' # Dashboard
+      - '8080:8080' # Dashboard
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
 
